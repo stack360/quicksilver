@@ -1,0 +1,21 @@
+.confirm{
+  .title{
+    font-size: $title-font-size;
+    // margin-left: 20px;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    &:first-child{
+      margin-top: 0px;
+    }
+  }
+
+  .border-row{
+    padding: 20px 20px 20px 0px;
+  }
+  .summary{
+    margin-right: 5px;
+  }
+
+}

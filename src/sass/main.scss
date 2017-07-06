@@ -1,0 +1,298 @@
+
+@import "./define";
+@import "home";
+@import "utils";
+@import "confirm";
+@import "rateList";
+@import "element";
+
+html,body{
+  font-family: $font-family;
+  background-color: white;
+  *{
+    font-family: $font-family;
+  }
+}
+
+///============================zhaoyang=======
+
+.banner,.container-banner{
+  height: 90px;
+  .logo{
+    height:50px;
+    margin: 30px 10px 10px 82px;
+  }
+}
+.container-banner{
+  border-bottom: 1px solid $light-gray;
+}
+
+.border-row {
+  border-bottom: 1px solid $light-gray;
+  &:first-child {
+    border-top: 1px solid $light-gray;
+  }
+}
+
+.from-content{
+  color: $font-grey-color;
+  font-size: $content-font-size;
+}
+
+.vertical-align {
+  display: flex;
+  flex-direction: row;
+}
+
+.vertical-align > [class^="col-"],
+.vertical-align > [class*=" col-"] {
+  display: flex;
+  align-items: center;
+  //justify-content: center;
+}
+
+input[type='checkbox'],input[type='radio']{
+  display: none;
+  & ~ span.checkbox-label,& ~ span.radio-label{
+    display: inline-block;
+
+    background-size: 18px 18px;
+    background-repeat:no-repeat;
+    margin-left: -18px;
+    padding-left: 25px;
+    min-height: 18px;
+  }
+
+  & ~ span.checkbox-label{
+    background-image:url("../image/rectangle.png");
+  }
+  & ~ span.radio-label{
+    background-image:url("../image/oval.png");
+  }
+
+  &:checked ~ span.checkbox-label{
+    background-image:url("../image/rectangle_selected.png");
+  }
+  &:checked ~ span.radio-label{
+    background-image:url("../image/ovel_selected.png");
+  }
+}
+
+.btn-primary:active, .btn-primary.active {
+  color: #fff;
+  background-color: darken($bright-green, 10%);
+  border-color: darken($bright-green, 40%);
+}
+
+
+///============================zhaoyang=======end
+
+///============================han============
+
+.bb{
+  border-bottom: 1px solid $grey-line;
+}
+.emphasis{
+  font-size:$small-font-size;
+  // color: #e67e22;
+}
+.grey-box{
+  background: $grey-bg;
+  border:1px solid $grey-line;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+  padding:40px 30px;
+}
+.grey-box.striped{
+  box-shadow: none !important;
+  border:none;
+  border-top:1px solid $grey-line;
+  border-bottom:1px solid darken($grey-bg, 3%);
+}
+.white-box{
+  padding:10px 30px;
+}
+.note{
+  color:$mid-gray;
+}
+
+a.disabled{
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+/*==================================
+=            Breadcrumb            =
+==================================*/
+
+@mixin gen_triangle($color, $border-width, $pos, $is_important){
+  @if $is_important {
+    $mark_important: " !important";
+  } @else {
+    $mark_important: "";
+  }
+  content: '';
+  position: absolute;
+  border-width: #{$border-width}px;
+  border-style: solid;
+  border-color: transparent transparent transparent #{$color} #{$mark_important};
+  @if $pos == 'left' {
+   left:0px;
+   top:0;
+  }
+  @if $pos == 'right' {
+    right:-#{$border-width*2}px;
+    top:0;
+  }
+  @if $color != white {
+    z-index:99;
+  }
+}
+ul.main-breadcrumb{
+  padding-left: 0;
+  li+li{
+    margin-left: 8px;
+  }
+
+  li{
+    a{
+      display: block;
+      text-align: center;
+      padding-top: 10px;
+      padding-left: 10px;
+      color: white;
+    }
+    display: inline-block;
+    width: calc(20% - calc(32px / 5));
+
+    list-style: none;
+    color:white;
+
+    height:40px;
+    background:$light-gray;
+    position: relative;
+
+    // generate white triangle before li
+    &::before{
+      @include gen_triangle(white, 20, 'left', false);
+    }
+
+
+
+    // generate gray triangle after li
+    &::after{
+      @include gen_triangle($light-gray, 20, 'right', false);
+    }
+
+    &.active{
+      background: $bright-green;
+      transition: all 0.5s ease;
+
+      // generate green triangle after li
+      &::after{
+        transition: all 0.5s ease;
+        @include gen_triangle($bright-green, 20, 'right', true);
+      }
+
+      &:hover{
+        background: darken($bright-green, 5%);
+        &::after{
+          @include gen_triangle(darken($bright-green, 5%), 20, 'right', true);
+        }
+      }
+    }
+
+    // do NOT generate triangle for first li
+    &:first-of-type{
+      &::before{
+        border-color: transparent !important;
+      }
+    }
+    // do NOT generate triangle for last li
+    &:last-of-type{
+      &::after{
+        border-color: transparent !important;
+      }
+    }
+  }
+}
+/*=====  End of Breadcrumb  ======*/
+
+/*=================================================
+=            Bootstrap Button Override            =
+=================================================*/
+.btn.btn-primary{
+  background: $bright-green;
+  border:1px solid darken($bright-green, 5%);
+
+  &:hover{
+    background: darken($bright-green, 5%);
+    color:darken(white, 2%);
+  }
+}
+
+/*=====  End of Bootstrap Button Override  ======*/
+
+/*============================================
+=            Label Style Override            =
+============================================*/
+
+
+.form-group{
+  label{
+    font-size:12px;
+    color:#7f8c8d;
+  }
+}
+
+
+/*=====  End of Label Style Override  ======*/
+
+
+///============================han============end
+
+
+
+
+
+
+.form-group-gap {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.error {
+  color: red;
+}
+
+.error-star {
+  font-size: 18px;
+  position: absolute;
+  top: 10px;
+  line-height: 18px;
+  left: 0px;
+}
+
+.fr {
+  float: right;
+}
+
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+.detail .unit-title{
+  text-align: center;
+  display: inline-block;
+  min-width: 50px;
+}
+
+.page-footer {
+  margin-top: 100px;
+  text-align: center;
+  border-top: 1px solid $grey-line;
+  padding-top:10px;
+  color:$note-grey;
+}
