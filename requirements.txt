@@ -1,0 +1,12 @@
+simplejson
+flask
+flask-oauth
+flask-login
+flask-principal
+flask-mongoengine
+mongoengine==0.11.0
+requests
+google-api-python-client
+facebook-sdk
+easypost
+paypalrestsdk

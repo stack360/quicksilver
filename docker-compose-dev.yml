@@ -1,0 +1,30 @@
+version: '2'
+services:
+  database:
+    image: mongo:3.2
+    container_name: QS_API_MONGO
+    ports:
+      - "28017:27017"
+  api:
+    build:
+      context: ./
+      dockerfile: ./_docker/api/Dockerfile
+    container_name: QS_API_CORE
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: "database"
+      DB_PORT: 27017
+    volumes:
+      - "./:/var/www/quicksilver_api"
+  nginx:
+    build:
+      context: ./
+      dockerfile: _docker/nginx/Dockerfile
+    container_name: QS_API_NGINX
+    ports:
+      - "80:80"
+
+networks:
+  nginx_node_ntw:
+    driver: bridge
