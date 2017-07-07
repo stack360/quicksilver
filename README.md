@@ -25,6 +25,8 @@ Note: if your image has changed, and you need to rebuild ONLY one image, you cou
 
 # Tips about Git-Subtree
 
+> For more information, you could visit (Git subtree: the alternative to Git submodule)[https://www.atlassian.com/blog/git/alternatives-to-git-submodule-git-subtree]
+
 * First you need to set up remotes:
 
 ```
@@ -40,3 +42,4 @@ git subtree push --prefix api api master --squash
 ```
 
 * And everything else is just normal git, ENJOY!
+
