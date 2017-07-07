@@ -27,18 +27,18 @@ Note: if your image has changed, and you need to rebuild ONLY one image, you cou
 
 > For more information, you could visit [Git subtree: the alternative to Git submodule](https://www.atlassian.com/blog/git/alternatives-to-git-submodule-git-subtree)
 
-* First you need to set up remotes:
+* First you need to set up remotes (you could name your origin, I used `api-origin` and `web-origin` here):
 
 ```
-git remote add api git@github.com:stack360/quicksilver_api
-git remote add web git@github.com:stack360/quicksilver-web
+git remote add api-origin git@github.com:stack360/quicksilver_api
+git remote add web-origin git@github.com:stack360/quicksilver-web
 ```
 
-* Then you could pull/push from these upstreams:
+* Then you could pull/push from these upstreams (notice that first time you use a `pull`, an `api` folder will be generated automatically for you):
 
 ```
-git subtree pull --prefix api api master --squash
-git subtree push --prefix api api master --squash
+git subtree pull --prefix api api-origin master --squash
+git subtree push --prefix api api-origin master --squash
 ```
 
 * And everything else is just normal git, ENJOY!
