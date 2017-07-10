@@ -2,26 +2,24 @@ version: '2'
 services:
   database:
     image: mongo:3.2
-    container_name: QS_API_MONGO
+    container_name: QS_MONGO
     ports:
       - "28017:27017"
 
   api:
     build:
       context: ./api/
-      dockerfile: ./_docker/api/Dockerfile
-    container_name: QS_API_CORE
+      dockerfile: ./_docker/api/prod.Dockerfile
+    container_name: QS_CORE
     environment:
       DB_HOST: "database"
       DB_PORT: 27017
-    volumes:
-      - "./api:/var/www/quicksilver_api"
 
   nginx:
     build:
       context: ./api/
       dockerfile: ./_docker/nginx/prod.Dockerfile
-    container_name: QS_API_NGINX
+    container_name: QS_NGINX
     ports:
       - "80:80"
 
@@ -30,7 +28,5 @@ services:
       context: ./web/
       dockerfile: ./prod.Dockerfile
     container_name: QS_WEB
-
-networks:
-  nginx_node_ntw:
-    driver: bridge
+    environment:
+      API_HOST: "api.qs.prod"
