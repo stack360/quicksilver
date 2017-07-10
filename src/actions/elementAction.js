@@ -21,8 +21,16 @@ export function getGoogleMap(){
 
 export function showGuestDialog(show){
     return {
-        type : "SHOW_GUEST_DIALOG",
+        type : "ELEMENT_SHOW_GUEST_DIALOG",
         payload:show
+    }
+}
+
+
+export function updateToken(token){
+    return {
+        type : "ELEMENT_UPDATE_TOKEN",
+        payload : token
     }
 }
 

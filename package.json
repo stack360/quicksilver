@@ -14,6 +14,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
+    "cross-domain-utils": "1.0.9",
     "paypal-checkout": "^4.0.87",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",

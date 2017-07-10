@@ -1,7 +1,8 @@
 import React from "react"
-import {Button, Row, Col} from "react-bootstrap"
+import {Button, Row, Col,DropdownButton,MenuItem} from "react-bootstrap"
 import {connect} from "react-redux"
 import {getFromAddress,updateFromAddress} from "../../actions/shipmentAction";
+import {getAddressBook} from "../../actions/userActions"
 import axios from "axios"
 import http from "../../util/http"
 import AddressForm from "../element/addressForm"
@@ -10,7 +11,9 @@ import Breadcrumb from "../element/breadcrumb"
 @connect((store) => {
     return {
         from: store.shipment.from_address,
-        address_validation_errors: store.shipment.address_validation_errors
+        address_validation_errors: store.shipment.address_validation_errors,
+        addressBook : store.user.addressBook,
+        token : store.element.token
     }
 })
 export default class FromAddress extends React.Component {
@@ -23,6 +26,9 @@ export default class FromAddress extends React.Component {
 
     componentWillMount() {
         this.props.dispatch(getFromAddress(this.shipmentId));
+        if(this.props.token){
+            this.props.dispatch(getAddressBook());
+        }
     }
 
     submit(){
@@ -82,12 +88,32 @@ export default class FromAddress extends React.Component {
         this.props.dispatch(updateFromAddress(val));
     }
 
+    addressBookSelected(idx){
+        this.props.dispatch(updateFromAddress(this.props.addressBook[idx]));
+    }
+
 
     render() {
+        let self = this;
+        var list = "";
+        if(this.props.addressBook && this.props.addressBook.length > 0){
+            list = (
+                <DropdownButton bsStyle="default"  onSelect={this.addressBookSelected.bind(this)} id='address-list' title="addressBook">
+                    {self.props.addressBook.map(function(item,index){
+                          return (<MenuItem key={index} eventKey={index}>{item['name']}</MenuItem>);
+                       })
+                    }
+                </DropdownButton>
+            )
+        }
+
+
         return (
             <div className="pt-20">
+
                 <Breadcrumb shipmentId={this.shipmentId} currentStep={1}></Breadcrumb>
                 <h4>Where is this shipment <b>from</b> ?</h4>
+                {list}
                 <AddressForm  data={this.props.from} errors={this.state.errors} valueChanged={this.valueChanged.bind(this)} address_validation_errors={this.props.address_validation_errors}/>
                 <div className='pull-left mt-20'>
                     <Button className="fr" bsStyle="primary" onClick={this.submit.bind(this)} >Continue</Button>

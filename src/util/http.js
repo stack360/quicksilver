@@ -6,12 +6,19 @@ import axios from "axios"
 import Cookies from 'universal-cookie';
 import {updateLoginState} from "../actions/elementAction"
 import {config} from "./config"
+import {updateToken} from "../actions/elementAction"
+import store from "../store"
 
 
 class Http {
     constructor(){
         this.cookies = new Cookies();
         this.token =  this.cookies.get("token") || "";
+        if(this.token){
+
+            store.dispatch(updateToken(this.token));
+        }
+
         this.guest_id = this.cookies.get("guest_id") ||  "";
         this.initInterceptors();
         this.initUrl();
@@ -21,6 +28,7 @@ class Http {
 
     initUrl(){
         var host = config['apiHost'];
+
         var prefix = "/api/v1/";
         this.url = {
             SHIPMENT_START:{
@@ -94,6 +102,7 @@ class Http {
                 if(!!extra.token && extra.token != self.token){
                     self.token = extra.token;
                     self.cookies.set("token",self.token,{path:'/'})
+                    store.dispatch(updateToken(extra.token));
                 }
                 if(!!extra.guest_id && extra.guest_id != self.guestId){
                     self.guest_id = extra.guest_id;
@@ -117,6 +126,7 @@ class Http {
     logout(){
         this.token = "";
         this.cookies.remove("token",{path:'/'});
+        store.dispatch(updateToken(""));
     }
 
     urlFormat(str){
