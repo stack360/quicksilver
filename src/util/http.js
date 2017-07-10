@@ -4,6 +4,9 @@
 
 import axios from "axios"
 import Cookies from 'universal-cookie';
+import {updateLoginState} from "../actions/elementAction"
+import {config} from "./config"
+
 
 class Http {
     constructor(){
@@ -17,7 +20,7 @@ class Http {
     }
 
     initUrl(){
-        var host = "http://api.qs.dev";
+        var host = config['apiHost'];
         var prefix = "/api/v1/";
         this.url = {
             SHIPMENT_START:{
@@ -49,6 +52,18 @@ class Http {
             },
             PAYMENT_EXECUTE:{
                 url : host + prefix + "payment/execute"
+            },
+            LOGIN:{
+                url : host + prefix + "user/login"
+            },
+            REGISTER:{
+                url : host + prefix + "user/register"
+            },
+            USER_ADDRESS_BOOK :{
+                url : host + prefix + "address"
+            },
+            USER_ADDRESS_BOOL_OPERATION : {
+                url : host + prefix + "address/{0}"
             }
         }
     }
@@ -97,6 +112,11 @@ class Http {
         this.token = "";
         this.cookies.remove("token",{path:'/'});
         this.cookies.remove("guest_id",{path:'/'});
+    }
+
+    logout(){
+        this.token = "";
+        this.cookies.remove("token",{path:'/'});
     }
 
     urlFormat(str){

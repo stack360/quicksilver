@@ -1,10 +1,13 @@
 
 @import "./define";
-@import "home";
+@import "unit/home";
 @import "utils";
-@import "confirm";
-@import "rateList";
+@import "shipment/confirm";
+@import "shipment/rateList";
 @import "element";
+@import "unit/login";
+@import "unit/register";
+@import "user/addressBook";
 
 html,body{
   font-family: $font-family;
@@ -82,6 +85,14 @@ input[type='checkbox'],input[type='radio']{
   color: #fff;
   background-color: darken($bright-green, 10%);
   border-color: darken($bright-green, 40%);
+}
+
+.error {
+  color:  red;
+}
+
+.align-center {
+  text-align: center;
 }
 
 

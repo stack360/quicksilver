@@ -1,0 +1,14 @@
+@import "../define";
+
+.register{
+  .wrapper{
+    max-width: 300px;
+    margin: 50px auto;
+  }
+  .title{
+    text-align: center;
+    font-size:$large-font-size;
+    color:$mid-gray;
+    margin-bottom: 20px;
+  }
+}

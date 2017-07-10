@@ -1,5 +1,5 @@
 import React from "react"
-import {Table,Button,Row,Col} from "react-bootstrap"
+import {Table,Button,Row,Col,tbody} from "react-bootstrap"
 import {connect} from "react-redux"
 import {getShipmentInfo} from "../../actions/shipmentAction"
 import axios from "axios"
@@ -102,11 +102,31 @@ export default class Confirm extends React.Component {
                     <Col xs={10} >
                         <div>
                             <span className="title">Shipment Fees </span><br/>
-                            <span>Service: {rate['carrier']} {rate['est_delivery_days']} days {rate['delivery_date_guaranteed']? "Guaranteed": ""}</span><br/>
-                            <div className='mt-10'>Shipping Postage: $ { parseFloat(rate['rate']).toFixed(2) }</div>
-                            <div>Insurance Premium: $ { parseFloat(shipment['insurance_premium']).toFixed(2) }</div>
-                            <div>Platform Fee: $ { parseFloat(shipment['platform_fee']).toFixed(2) }</div>
-                            <div>Tax: $ { parseFloat(shipment['tax']).toFixed(2) }</div>
+                            <Table bordered>
+                                <tbody>
+                                <tr>
+                                    <td>Service:  </td>
+                                    <td>{rate['carrier']} {rate['est_delivery_days']} days {rate['delivery_date_guaranteed']? "Guaranteed": ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>Shipping Postage </td>
+                                    <td>$ { parseFloat(rate['rate']).toFixed(2) }</td>
+                                </tr>
+                                <tr>
+                                    <td>Insurance Premium  </td>
+                                    <td>$ { parseFloat(shipment['insurance_premium']).toFixed(2) }</td>
+                                </tr>
+                                <tr>
+                                    <td>Platform Fee </td>
+                                    <td>$ { parseFloat(shipment['platform_fee']).toFixed(2) }</td>
+                                </tr>
+                                <tr>
+                                    <td>Tax</td>
+                                    <td> $ { parseFloat(shipment['tax']).toFixed(2) }</td>
+                                </tr>
+                                </tbody>
+                            </Table>
+
                         </div>
                     </Col>
                     <Col xs={2}>

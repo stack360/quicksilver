@@ -20,7 +20,9 @@ import GuestDialog from "../element/guestDialog"
 import axios from "axios"
 import {startShip} from "../../actions/shipmentAction"
 import { Row, Col} from "react-bootstrap"
-
+import AddressBook from "../user/addressBook"
+import NotFound from "../unit/notFound"
+import EditAddress from "../user/editAddress"
 
 
 const logoPath = require("../../image/logo.png");
@@ -37,16 +39,8 @@ export default class ContainerLayout extends React.Component {
 
     }
 
-    // handleSelect(key) {
-    //     let self = this;
-    //     if (key == 1) {
-    //
-    //     }
-    //     return true;
-    // }
 
     componentWillMount() {
-        this.props.dispatch(fetchUser());
     }
 
 
@@ -69,8 +63,12 @@ export default class ContainerLayout extends React.Component {
                                 <Route path="/shipment/pay/:ship_id" component={Pay}/>
                                 <Route path="/shipment/label/:ship_id" component={ShowLabel}/>
 
+                                <Route path="/user/address-book" component={AddressBook}/>
+                                <Route path="/user/edit-address/:addressId?" component={EditAddress} />
+
                                 <Route path="/shipment/user-type/:ship_id" component={UserType}/>
                                 <Route path="/user/guest-info/" component={GuestInfo}/>
+                                <Route component={NotFound}/>
                             </Switch>
                         </Col>
                     </Row>
@@ -78,7 +76,7 @@ export default class ContainerLayout extends React.Component {
                 <div className="page-footer">
                     Copyright Co © Ur Box Corp. All Rights Reserved.
                 </div>
-                <GuestDialog/>
+                <GuestDialog history={this.props.history}/>
             </div>
 
         );

@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server -d --content-base build/",
+    "start": "webpack-dev-server -d --env=dev --public www.qs.prod:9000 --content-base build/",
     "dev": "webpack -d --watch & node index.js",
-    "build": "webpack -p"
+    "build": "webpack -p --env=prod"
   },
   "author": "",
   "license": "ISC",

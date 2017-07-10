@@ -14,6 +14,8 @@ import  './sass/main.scss'
 const app = document.getElementById("react");
 
 
+
+
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter >
@@ -21,6 +23,7 @@ ReactDOM.render(
                 <Route path="/" exact component={NormalLayout} />
                 <Route path="/shipment" component={ContainerLayout} />
                 <Route path="/payment" component={ContainerLayout} />
+                <Route path="/user" component={ContainerLayout} />
                 <Route component={NormalLayout} />
             </Switch>
         </BrowserRouter>

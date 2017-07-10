@@ -15,8 +15,6 @@ export default class GuestDialog extends React.Component {
     constructor(props){
         super(props);
         this.state = {};
-
-
     }
 
     componentWillMount(){
@@ -25,6 +23,7 @@ export default class GuestDialog extends React.Component {
 
     login(){
         this.props.dispatch(showGuestDialog(false));
+        this.props.history.push("/login");
     }
 
     expressCheckout(){

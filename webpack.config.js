@@ -96,7 +96,11 @@ var config = {
     plugins: [
         new CleanWebpackPlugin(BUILD_DIR),
         new HtmlWebpackPlugin({template: './index.html'}),
-
+        new webpack.DefinePlugin({
+            'process.env': {
+                'API_HOST': JSON.stringify(process.env.API_HOST )
+            }
+        })
     ],
     devServer: {
         port: 9000,

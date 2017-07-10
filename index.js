@@ -11,8 +11,8 @@ app.get('*', function(request, response, next) {
     response.sendFile(__dirname + '/build/index.html');
 });
 
-server.listen(5000, function () {
-    console.log('app listening on port 5000!');
+server.listen(9000, function () {
+    console.log('app listening on port 9000!');
 });
 
 process.on('SIGINT', function() {

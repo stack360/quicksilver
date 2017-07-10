@@ -1,6 +1,6 @@
 export default function reducer(state={
     googleMaps:null,
-    showGuestDialog:false
+    showGuestDialog:false,
 },action){
     switch (action.type) {
         case "ELEMENT_GET_GOOGLE_MAP":
@@ -13,6 +13,7 @@ export default function reducer(state={
                 ...state,
                 showGuestDialog:action.payload
             }
+
         default:
             return state;
     }

@@ -2,26 +2,46 @@
  * Created by su on 6/7/17.
  */
 
-export function fetchUser(){
+import axios from "axios"
+import http from "../util/http"
+
+
+export function updateUserProfile(profile){
     return {
-        type:"FETCH_USER_FULFILLED",
-        payload:{
-            name:"Will",
-            age:35
-        }
+        type : "USER_UPDATE_PROFILE",
+        payload : profile,
     }
 }
 
-export function setUserName(name){
-    return {
-        type:"SET_USER_NAME",
-        payload:name
+
+export function getAddressBook(){
+    return (dispatch)=>{
+        axios.get(http.url.USER_ADDRESS_BOOK.url).then(function(res){
+            dispatch({
+                type:"USER_GET_ADDRESS_BOOK",
+                payload: res.data.data.addresses
+            })
+        })
     }
 }
 
-export function setUserAge(age){
+export function addAddress(address){
     return {
-        type:"SET_USER_AGE",
-        payload:age
+        type:"USER_ADD_ADDRESS",
+        payload:address
     }
 }
+
+export function deleteAddress(addressId){
+    return{
+        type:"USER_DELETE_ADDRESS",
+        payload:addressId
+    }
+}
+//
+// export function updateAddress(address){
+//     return {
+//         type:"USER_UPDATE_ADDRESS",
+//         payload : address
+//     }
+// }
