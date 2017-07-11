@@ -10,26 +10,26 @@ services:
     image: simonzg/qs_api
     build:
       context: ./api/
-      dockerfile: ./_docker/api/prod.Dockerfile
+      dockerfile: ./_docker/api/stage.Dockerfile
     container_name: QS_CORE
     environment:
       DB_HOST: "database"
       DB_PORT: 27017
 
-  nginx:
-    image: simonzg/qs_nginx
-    build:
-      context: ./api/
-      dockerfile: ./_docker/nginx/prod.Dockerfile
-    container_name: QS_NGINX
-    ports:
-      - "80:80"
-
   web:
     image: simonzg/qs_web
     build:
       context: ./web/
-      dockerfile: ./prod.Dockerfile
+      dockerfile: ./stage.Dockerfile
     container_name: QS_WEB
     environment:
       API_HOST: "api.qs.prod"
+
+  nginx:
+    image: simonzg/qs_nginx
+    build:
+      context: ./api/
+      dockerfile: ./_docker/nginx/stage.Dockerfile
+    container_name: QS_NGINX
+    ports:
+      - "80:80"
