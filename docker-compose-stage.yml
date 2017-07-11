@@ -7,6 +7,7 @@ services:
       - "28017:27017"
 
   api:
+    image: simonzg/qs_api
     build:
       context: ./api/
       dockerfile: ./_docker/api/prod.Dockerfile
@@ -16,6 +17,7 @@ services:
       DB_PORT: 27017
 
   nginx:
+    image: simonzg/qs_nginx
     build:
       context: ./api/
       dockerfile: ./_docker/nginx/prod.Dockerfile
@@ -24,6 +26,7 @@ services:
       - "80:80"
 
   web:
+    image: simonzg/qs_web
     build:
       context: ./web/
       dockerfile: ./prod.Dockerfile
