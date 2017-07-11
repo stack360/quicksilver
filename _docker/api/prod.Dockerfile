@@ -42,5 +42,7 @@ RUN apt-get install -y wget && \
 
 RUN touch /var/log/uwsgi.log
 
+ADD . /var/www/quicksilver_api
+
 CMD ["/usr/bin/supervisord", "-c", "/var/www/quicksilver_api/_docker/api/supervisord.conf"]
 
