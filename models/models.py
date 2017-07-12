@@ -9,7 +9,7 @@ from flask_login import UserMixin
 from flask_mongoengine import MongoEngine
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from quicksilver_api.config import current_config
+from config import current_config
 
 import crypts
 
@@ -144,7 +144,7 @@ class Address(BaseModel, db.Document):
     guest = db.ReferenceField(Guest, required=False)
 
     __ignore_params__ = ['id', 'user']
-    __as_json_ignored__ = ['user']
+    __as_json_ignored__ = ['user','guest']
 
 class Token(BaseModel, db.Document):
     text = db.StringField(max_length=255)

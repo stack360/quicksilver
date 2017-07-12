@@ -1,5 +1,5 @@
 import os, sys
-app_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
+app_path = os.path.join(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(app_path)
 import traceback
 from bson import ObjectId
