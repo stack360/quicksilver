@@ -6,11 +6,13 @@ import axios from "axios"
 import http from "../../util/http"
 import Breadcrumb from "../element/breadcrumb"
 import {Link} from "react-router-dom"
+import {showGuestDialog} from "../../actions/elementAction"
 
 
 @connect((store) => {
     return {
         shipment: store.shipment,
+        token: store.element.token
     }
 })
 export default class Confirm extends React.Component {
@@ -26,6 +28,27 @@ export default class Confirm extends React.Component {
 
 
     submit(){
+        if(!this.props.token){
+            var info = {
+                loginCallback:this.login.bind(this),
+                expressCallback:this.expressCheckout.bind(this),
+                registerCallback:this.register.bind(this)
+            };
+            this.props.dispatch(showGuestDialog(info));
+        }else{
+            this.expressCheckout();
+        }
+    }
+
+    login(){
+        this.props.history.push("/login?backUrl=/shipment/confirm/" + this.shipmentId );
+    }
+
+    register(){
+        this.props.history.push("/register?backUrl=/shipment/confirm/" + this.shipmentId );
+    }
+
+    expressCheckout(){
         let self = this;
         axios.post(http.urlFormat(http.url.SHIPMENT_CONFIRM.url,self.shipmentId),{}).then(function(res){
             self.props.history.push("/shipment/pay/" + self.shipmentId);

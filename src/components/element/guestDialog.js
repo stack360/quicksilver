@@ -2,12 +2,12 @@ import React from "react";
 
 import {Button} from "react-bootstrap";
 import {connect} from "react-redux"
-import {showGuestDialog} from "../../actions/elementAction"
+import {hideGuestDialog} from "../../actions/elementAction"
 
 
 @connect((store) => {
     return {
-        show:store.element.showGuestDialog,
+        info:store.element.gustDialogInfo,
     }
 })
 export default class GuestDialog extends React.Component {
@@ -22,21 +22,29 @@ export default class GuestDialog extends React.Component {
     }
 
     login(){
-        this.props.dispatch(showGuestDialog(false));
-        this.props.history.push("/login");
+        this.props.dispatch(hideGuestDialog());
+        if(this.props.info.loginCallback){
+            this.props.info.loginCallback();
+        }
     }
 
     expressCheckout(){
-        this.props.dispatch(showGuestDialog(false));
+        this.props.dispatch(hideGuestDialog());
+        if(this.props.info.expressCallback){
+            this.props.info.expressCallback();
+        }
     }
 
     register(){
-        this.props.dispatch(showGuestDialog(false));
+        this.props.dispatch(hideGuestDialog());
+        if(this.props.info.registerCallback){
+            this.props.info.registerCallback();
+        }
     }
 
     render(){
         var style = {};
-        if(!this.props.show){
+        if(!this.props.info.show){
             style = {
                 display:"none"
             }
@@ -47,7 +55,7 @@ export default class GuestDialog extends React.Component {
             <div className="panel">
                 <Button className="login-btn" onClick={this.login.bind(this)} >Login</Button>
                 <Button bsStyle="primary" className="express-btn" onClick={this.expressCheckout.bind(this)}>Express Checkout</Button>
-                <span className="title" onClick={this.register.bind(this)} >Create Account</span>
+                <span className="title register" onClick={this.register.bind(this)} >Create Account</span>
                 <span className="subtitle">or checkout without registering</span>
             </div>
         </div>);

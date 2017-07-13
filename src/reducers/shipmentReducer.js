@@ -33,8 +33,6 @@ export default function reducer(state={
     "label_url":"",
     "shipment_id":0,
     "picked_rate_id":0,
-    "address_validation_errors":[]
-
 },action){
     switch (action.type) {
         case "GET_FROM_ADDRESS":
@@ -81,10 +79,10 @@ export default function reducer(state={
                 ...state,
                 ...action.payload
             }
-        case "SHIPMENT_GET_DETAIL":
+        case "SHIPMENT_GET_RATES":
             return{
                 ...state,
-                rates:action.payload
+                ...action.payload
             }
         case "SHIPMENT_UPDATE_PICKED_RATE_ID":
             return {

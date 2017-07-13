@@ -19,10 +19,16 @@ export function getGoogleMap(){
 }
 
 
-export function showGuestDialog(show){
+export function showGuestDialog(info){
     return {
         type : "ELEMENT_SHOW_GUEST_DIALOG",
-        payload:show
+        payload:info
+    }
+}
+
+export function hideGuestDialog(){
+    return {
+        type: "ELEMENT_HIDE_GUEST_DIALOG"
     }
 }
 

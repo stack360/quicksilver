@@ -77,7 +77,6 @@ class Http {
     }
     initInterceptors(){
         let self = this;
-        // Add a request interceptor
         axios.interceptors.request.use(function (config) {
             let header = {};
             if(self.token || self.guest_id){
@@ -91,11 +90,9 @@ class Http {
             }
             return config;
         }, function (error) {
-            // Do something with request error
             return Promise.reject(error);
         });
 
-        // Add a response interceptor
         axios.interceptors.response.use(function (response) {
             if (response.data.extras){
                 let extra = response.data.extras;
@@ -111,7 +108,6 @@ class Http {
             }
             return response;
         }, function (error) {
-            // Do something with response error
             return Promise.reject(error);
         });
     }
@@ -135,6 +131,10 @@ class Http {
             return typeof args[number] != undefined
                 ? args[number] : match;
         });
+    }
+
+    addressErrorCatch(data){
+
     }
 }
 

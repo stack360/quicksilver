@@ -72,8 +72,8 @@ export function getRates(shipmentId) {
     return (dispatch) => {
         axios.get(http.urlFormat(http.url.SHIPMENT_RATES.url, shipmentId)).then(function (res) {
             dispatch({
-                type: "SHIPMENT_GET_DETAIL",
-                payload: res.data.data.rates
+                type: "SHIPMENT_GET_RATES",
+                payload: res.data.data
             })
         });
     }

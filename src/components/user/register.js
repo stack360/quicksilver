@@ -2,6 +2,7 @@ import React from "react"
 import {Form,FormControl,FormGroup,HelpBlock,Button} from "react-bootstrap"
 import http from "../../util/http"
 import axios from "axios"
+import validateTool  from "../../util/validateTool"
 
 export default class Register extends React.Component{
     constructor(props){
@@ -25,14 +26,18 @@ export default class Register extends React.Component{
     validate(){
         var res = true;
         var tmpValidate = {};
-        if(this.state.username.trim().length < 8){
+
+        var err = [];
+        if(!validateTool.validate(validateTool.type.USERNAME,this.state.username.trim(),err)){
             res = false;
-            tmpValidate['username'] = "The user name must have more then 8 character.";
+            tmpValidate['username'] = err[0];
+            err = [];
         }
 
-        if(this.state.pwd.length < 8){
-            tmpValidate['pwd'] = "The password must have more then 8 character.";
+        if(!validateTool.validate(validateTool.type.PASSWORD,this.state.pwd,err)){
+            tmpValidate['pwd'] = err[0];
             res = false;
+            err = []
         }
 
         if(this.state.pwd != this.state.confirm){
@@ -40,10 +45,10 @@ export default class Register extends React.Component{
             res = false;
         }
 
-        var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if( !this.state.email.match(regex)){
-            tmpValidate['email'] = "Please input correct email address."
+        if( !validateTool.validate(validateTool.type.EMAIL,this.state.email,err)) {
+            tmpValidate['email'] = err[0];
             res = false;
+            err = [];
         }
         this.setState({validate:tmpValidate});
         return res;
@@ -56,9 +61,11 @@ export default class Register extends React.Component{
             "password" : this.state.pwd,
             "email" : this.state.email
         }
+
+        let backUrl = this.props.match.params["backUrl"] || "/user/address-book";
         if(this.validate()){
             axios.post(http.url.REGISTER.url,data).then(function(){
-                self.props.history.push("/");
+                self.props.history.push(backUrl);
             });
         }
     }

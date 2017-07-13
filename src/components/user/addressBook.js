@@ -42,9 +42,9 @@ export default class AddressBook extends React.Component {
 
     render() {
         let self = this;
-        return ( <div className="address-book">
-            <span className="title"> AddressBook</span>
-            <Button onClick={this.add.bind(this)}>Add</Button>
+        return ( <div className="address-book wrapper">
+            <span className="title mt-20"> AddressBook</span>
+            <Button className="mt-20 mb-20" bsStyle="success" onClick={this.add.bind(this)}>Add</Button>
 
             <Table responsive>
                 <thead>

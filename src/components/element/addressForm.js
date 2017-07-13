@@ -34,8 +34,6 @@ export default class AddressForm extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-        console.log("next props");
-        console.log(nextProps);
         if(nextProps.googleMaps && this.autocomplete == null){
             this.initAutoComplete(nextProps.googleMaps);
         }

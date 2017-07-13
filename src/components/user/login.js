@@ -4,6 +4,8 @@ import http from "../../util/http"
 import axios from "axios"
 import {updateUserProfile} from "../../actions/userActions"
 import {connect} from "react-redux"
+import {parse} from "querystring"
+
 
 
 @connect((store)=>{
@@ -17,6 +19,8 @@ export default class Login extends React.Component {
             pwd: "",
             error: null
         }
+
+
     }
 
     submit(){
@@ -25,9 +29,14 @@ export default class Login extends React.Component {
             "username": this.state.username,
             "password":this.state.pwd
         };
+
+        let parsed = parse(this.props.location.search.substring(1));
+
+        let backUrl = parsed["backUrl"] || "/user/address-book";
+
         axios.post(http.url.LOGIN.url,data).then(function(res){
             self.props.dispatch(updateUserProfile(res.data.data));
-            self.props.history.push("/user/address-book");
+            self.props.history.push(backUrl);
         },function (error){
             self.setState({error : "Invalid  username/password"});
         })

@@ -1,4 +1,4 @@
-
+@import "../../node_modules/bootstrap/dist/css/bootstrap.css";
 @import "./define";
 @import "unit/home";
 @import "utils";
@@ -8,6 +8,18 @@
 @import "unit/login";
 @import "unit/register";
 @import "user/addressBook";
+
+
+html  {
+  height: 100%;
+}
+
+body{
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 70px;
+}
+
 
 html,body{
   font-family: $font-family;
@@ -19,11 +31,13 @@ html,body{
 
 ///============================zhaoyang=======
 
+
 .banner,.container-banner{
-  height: 90px;
+  height: 70px;
   .logo{
-    height:50px;
-    margin: 30px 10px 10px 82px;
+    height:40px;
+    margin-top: 20px;
+    margin-left:10%;
   }
 }
 .container-banner{
@@ -94,6 +108,7 @@ input[type='checkbox'],input[type='radio']{
 .align-center {
   text-align: center;
 }
+
 
 
 ///============================zhaoyang=======end
@@ -301,7 +316,10 @@ ul.main-breadcrumb{
 }
 
 .page-footer {
-  margin-top: 100px;
+  position: absolute;
+  left: 0px;
+  right:0px;
+  bottom: 20px;
   text-align: center;
   border-top: 1px solid $grey-line;
   padding-top:10px;

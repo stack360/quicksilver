@@ -2,7 +2,6 @@ import React from "react"
 import ReactDOM from "react-dom"
 import store from "./store"
 import { Provider } from "react-redux"
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css'
 import ContainerLayout from "./components/layout/containerLayout"
 import NormalLayout from "./components/layout/normalLayout"
 

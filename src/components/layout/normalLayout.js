@@ -14,7 +14,7 @@ export default class NormalLayout extends React.Component{
     render(){
         return(
 
-            <div>
+            <div className='page-wrapper'>
                 <div className="banner">
                     <Link to={"/"}><img src={logoPath} className="logo" /></Link>
                 </div>
