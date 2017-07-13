@@ -13,11 +13,19 @@ import store from "../store"
 class Http {
     constructor(){
         this.cookies = new Cookies();
-        this.token =  this.cookies.get("token") || "";
-        if(this.token){
-
-            store.dispatch(updateToken(this.token));
+        var token =  this.cookies.get("token") || "";
+        if(token){
+            store.dispatch(updateToken(token));
         }
+
+        let self = this;
+        store.subscribe(()=>{
+            var newToken = store.getState()['element']['token'];
+            if(newToken != token){
+                self.tokenUpdate(newToken);
+                token = newToken;
+            }
+        })
 
         this.guest_id = this.cookies.get("guest_id") ||  "";
         this.initInterceptors();
@@ -72,16 +80,20 @@ class Http {
             },
             USER_ADDRESS_BOOL_OPERATION : {
                 url : host + prefix + "address/{0}"
+            },
+            USER_PROFILE : {
+                url : host + prefix + "user/info"
             }
         }
     }
     initInterceptors(){
         let self = this;
         axios.interceptors.request.use(function (config) {
+            var token = store.getState()['element']['token'];
             let header = {};
-            if(self.token || self.guest_id){
-                if(self.token){
-                    header["X-Auth-Token"] = self.token;
+            if(token || self.guest_id){
+                if(token){
+                    header["X-Auth-Token"] = token;
                 }
                 if(self.guest_id){
                     header["X-Auth-Guest-Id"] = self.guest_id;
@@ -95,10 +107,9 @@ class Http {
 
         axios.interceptors.response.use(function (response) {
             if (response.data.extras){
+                var token = store.getState()['element']['token'];
                 let extra = response.data.extras;
-                if(!!extra.token && extra.token != self.token){
-                    self.token = extra.token;
-                    self.cookies.set("token",self.token,{path:'/'})
+                if(!!extra.token && extra.token != token){
                     store.dispatch(updateToken(extra.token));
                 }
                 if(!!extra.guest_id && extra.guest_id != self.guestId){
@@ -112,15 +123,22 @@ class Http {
         });
     }
 
+
+    tokenUpdate(token){
+        if(token){
+            this.cookies.set("token",token,{path:'/'})
+        }else{
+            this.cookies.remove("token",{path:'/'});
+        }
+    }
+
     removeIds(){
         this.guest_id = "";
-        this.token = "";
         this.cookies.remove("token",{path:'/'});
         this.cookies.remove("guest_id",{path:'/'});
     }
 
     logout(){
-        this.token = "";
         this.cookies.remove("token",{path:'/'});
         store.dispatch(updateToken(""));
     }

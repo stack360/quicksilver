@@ -5,6 +5,7 @@ import axios from "axios"
 import {updateUserProfile} from "../../actions/userActions"
 import {connect} from "react-redux"
 import {parse} from "querystring"
+import {Link} from "react-router-dom"
 
 
 
@@ -52,7 +53,7 @@ export default class Login extends React.Component {
 
     render() {
         let errorNode = null;
-        let state = "";
+        let state = null;
         if(this.state.error != null){
             errorNode = (<div className="mb-10 align-center"> <span className="error"> {this.state.error} </span> </div>)
             state = "error";
@@ -65,14 +66,15 @@ export default class Login extends React.Component {
                     </div>
                     <Form >
                         <FormGroup controlId="name" validationState={state}>
-                            <FormControl name="username" type="txt" placeholder="Email"  onChange={this.onChange.bind(this)}/>
+                            <FormControl tabIndex="1" name="username" type="txt" placeholder="Email"  onChange={this.onChange.bind(this)}/>
                         </FormGroup>
                         <FormGroup controlId="pwd" validationState={state}>
-                            <FormControl name="pwd" type="password" placeholder="Password" onChange={this.onChange.bind(this)}/>
+                            <FormControl tabIndex="2"  name="pwd" type="password" placeholder="Password" onChange={this.onChange.bind(this)}/>
                         </FormGroup>
                     </Form>
                     {errorNode}
                     <Button bsStyle="success" onClick={this.submit.bind(this)} block>Login</Button>
+                    <span className="subtitle">or go to <span className="register"> <Link to="/register"> register</Link></span></span>
                 </div>
 
             </div>

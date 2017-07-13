@@ -5,7 +5,6 @@
 import React from "react";
 import {connect} from "react-redux"
 import {fetchUser} from "../../actions/userActions"
-import http from "../../util/http"
 import {Route, Switch,Link} from "react-router-dom"
 import FromAddress from "../shipment/fromAddress"
 import ToAddress from "../shipment/toAddress"
@@ -17,19 +16,19 @@ import RateList from "../shipment/rateList"
 import Confirm from "../shipment/confirm"
 import Pay from "../payment/pay"
 import GuestDialog from "../element/guestDialog"
-import axios from "axios"
-import {startShip} from "../../actions/shipmentAction"
-import { Row, Col} from "react-bootstrap"
+import { Row, Col,DropdownButton,MenuItem} from "react-bootstrap"
 import AddressBook from "../user/addressBook"
 import NotFound from "../unit/notFound"
 import EditAddress from "../user/editAddress"
+import {getUserProfile,logout} from "../../actions/userActions"
 
 
 const logoPath = require("../../image/logo.png");
 
 @connect((store) => {
     return {
-        user: store.user.user
+        user: store.user.profile,
+        token : store.element.token
     }
 })
 export default class ContainerLayout extends React.Component {
@@ -40,15 +39,49 @@ export default class ContainerLayout extends React.Component {
     }
 
 
-    componentWillMount() {
+    componentWillMount(){
+        if(this.props.token && !this.props.user.id){
+            this.props.dispatch(getUserProfile());
+        }
+    }
+
+    onSelect(key){
+        if(key == 1){
+            this.goAddressBook();
+        }else{
+            this.logout();
+        }
+    }
+
+    goAddressBook(){
+        this.props.history.push("/user/address-book");
+    }
+
+    logout(){
+        this.props.dispatch(logout());
+        this.props.history.push("/");
     }
 
 
     render() {
+
+        let userBtn = "";
+        if(this.props.user.id){
+            userBtn = (
+                <div className="fr mt-25 mr-20">
+                    <DropdownButton  onSelect={this.onSelect.bind(this)} bsStyle="primary" pullRight title={this.props.user.username} >
+                        <MenuItem eventKey="1">AddressBook</MenuItem>
+                        <MenuItem eventKey="2">Logout</MenuItem>
+                    </DropdownButton>
+                </div>
+            );
+        }
+
         return (
             <div className='page-wrapper'>
                 <div className="container-banner">
                     <Link to={"/"}> <img src={logoPath} className="logo" /></Link>
+                    {userBtn}
                 </div>
                 <div className="container">
                     <Row>

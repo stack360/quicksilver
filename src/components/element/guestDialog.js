@@ -56,7 +56,6 @@ export default class GuestDialog extends React.Component {
                 <Button className="login-btn" onClick={this.login.bind(this)} >Login</Button>
                 <Button bsStyle="primary" className="express-btn" onClick={this.expressCheckout.bind(this)}>Express Checkout</Button>
                 <span className="title register" onClick={this.register.bind(this)} >Create Account</span>
-                <span className="subtitle">or checkout without registering</span>
             </div>
         </div>);
     }

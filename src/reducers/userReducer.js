@@ -55,6 +55,21 @@ export default function reducer(state={
                 ...state,
                 addressBook : book
             }
+        case "USER_GET_PROFILE":
+            return {
+                ...state,
+                profile : action.payload
+            }
+        case "USER_LOGOUT":{
+            return {
+                profile:{
+                    id:null,
+                    username:null,
+                    role:null
+                },
+                addressBook:[]
+            }
+        }
         default:
             return state;
     }

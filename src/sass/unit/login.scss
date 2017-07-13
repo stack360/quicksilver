@@ -4,11 +4,21 @@
     max-width: 300px;
     margin: 50px auto;
   }
-  .title{
+  .title,.subtitle{
     text-align: center;
     font-size:$large-font-size;
     color:$mid-gray;
     margin-bottom: 20px;
+  }
+
+  .subtitle{
+    display: block;
+    font-size:$small-font-size;
+  }
+
+  .register {
+    cursor: pointer;
+    color: $bright-green
   }
 
 }

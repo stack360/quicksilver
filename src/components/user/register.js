@@ -62,7 +62,7 @@ export default class Register extends React.Component{
             "email" : this.state.email
         }
 
-        let backUrl = this.props.match.params["backUrl"] || "/user/address-book";
+        let backUrl = this.props.match.params["backUrl"] || "/login";
         if(this.validate()){
             axios.post(http.url.REGISTER.url,data).then(function(){
                 self.props.history.push(backUrl);

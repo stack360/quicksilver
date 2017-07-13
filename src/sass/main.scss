@@ -95,10 +95,19 @@ input[type='checkbox'],input[type='radio']{
   }
 }
 
-.btn-primary:active, .btn-primary.active {
+.btn-primary:active, .btn-primary.active,
+.open > .dropdown-toggle.btn-primary,
+.btn-primary:active:hover, .btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus, .btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus
+{
   color: #fff;
   background-color: darken($bright-green, 10%);
-  border-color: darken($bright-green, 40%);
+  border-color: darken($bright-green, 20%);
 }
 
 .error {
@@ -146,6 +155,8 @@ a.disabled{
     text-decoration: none;
   }
 }
+
+
 
 /*==================================
 =            Breadcrumb            =

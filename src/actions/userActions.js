@@ -38,6 +38,26 @@ export function deleteAddress(addressId){
         payload:addressId
     }
 }
+
+
+export function getUserProfile(){
+    return(dispatch)=>{
+        axios.get(http.url.USER_PROFILE.url).then(function(res){
+            dispatch({
+                type:"USER_GET_PROFILE",
+                payload:res.data.data
+            })
+        });
+    }
+}
+
+export function logout(){
+    return {
+        type : "USER_LOGOUT",
+        payload:""
+    }
+}
+
 //
 // export function updateAddress(address){
 //     return {

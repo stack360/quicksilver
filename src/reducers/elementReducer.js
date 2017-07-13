@@ -37,6 +37,11 @@ export default function reducer(state={
                 ...state,
                 token : action.payload
             };
+        case "USER_LOGOUT":
+            return {
+                ...state,
+                token:""
+            }
 
         default:
             return state;
