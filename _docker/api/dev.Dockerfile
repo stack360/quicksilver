@@ -1,46 +1,37 @@
-FROM ubuntu:trusty
+FROM python:2.7.12-alpine
 
 MAINTAINER Han Zhang <zhanghan.simon@gmail.com>
 
-# nginx and uwsgi plugin
-RUN apt-get update && \
-    apt-get -y install \
+RUN apk add --no-cache \
+    bash \
     wget \
-    curl \
-    telnet \
     vim \
-    python-dev \
     supervisor \
-    uwsgi \
+    python-dev \
+    uwsgi-python \
+    build-base \
+    linux-headers \
     # for paypal API
-    libssl-dev \
-    libffi-dev
+    libffi-dev \
+    openssl-dev
 
-# install pip
-ENV PYTHON_PIP_VERSION 8.1.2
-RUN curl -SL 'https://bootstrap.pypa.io/get-pip.py' | python \
-    && pip --no-cache-dir install --upgrade pip==$PYTHON_PIP_VERSION && \
-    pip --no-cache-dir install uwsgi
+# create target folder
+RUN mkdir /app
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+
+RUN pip --no-cache-dir install docutils
+RUN pip --no-cache-dir install https://github.com/unbit/uwsgi/archive/uwsgi-2.0.zip#egg=uwsgi
+RUN pip --no-cache-dir install -r requirements.txt
 
 # setup supervisord
 RUN mkdir -p /var/log/supervisor
 
-# create target folder
-RUN mkdir /var/www
-WORKDIR /var/www
-
-# install dependencies
-ADD requirements.txt ./requirements.txt
-RUN pip --no-cache-dir install -r requirements.txt
-
 # get credentials
-RUN mkdir -p /var/www/.credentials && \
-    cd /var/www/.credentials && \
-    wget http://www.stack360.io/my-weekly-status.json && \
-    cp -rf /var/www/.credentials ~/.credentials && \
-    chmod 755 -R /var/www/.credentials
+RUN wget http://www.stack360.io/my-weekly-status.json \
+    && mkdir ~/.credentials \
+    && cp -rf my-weekly-status.json ~/.credentials/ \
+    && chmod 755 -R ~/.credentials
 
-# clean all caches
-RUN apt-get clean
-
-CMD ["/usr/local/bin/uwsgi", "/var/www/quicksilver_api/_docker/api/uwsgi.ini"]
+CMD ["uwsgi", "/app/_docker/api/dev.uwsgi.ini"]

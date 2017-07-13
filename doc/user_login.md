@@ -17,10 +17,17 @@
 
 ```json
 {
-  "extras": {
-    "expire_at": "2017-06-22 02:39:03",
-    "token": "T_xoNIY1ouixHCQ"
-  }
+    "data": {
+        "email": "z@gmail.com",
+        "id": "59669f2173a0b3162466b7ba",
+        "last_login": "2017-07-12 15:25:31",
+        "role": "customer",
+        "username": "z"
+    },
+    "extras": {
+        "expire_at": "2017-07-12 18:25:31",
+        "token": "T_ouXjVmfDWIPsM"
+    }
 }
 ```
 

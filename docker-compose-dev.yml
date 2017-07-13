@@ -5,10 +5,11 @@ services:
     container_name: QS_API_MONGO
     ports:
       - "28017:27017"
+
   api:
     build:
       context: ./
-      dockerfile: ./_docker/api/Dockerfile
+      dockerfile: ./_docker/api/dev.Dockerfile
     container_name: QS_API_CORE
     ports:
       - "5000:5000"
@@ -16,15 +17,12 @@ services:
       DB_HOST: "database"
       DB_PORT: 27017
     volumes:
-      - "./:/var/www/quicksilver_api"
+      - "./:/app"
+
   nginx:
     build:
       context: ./
-      dockerfile: _docker/nginx/Dockerfile
+      dockerfile: _docker/nginx/dev.Dockerfile
     container_name: QS_API_NGINX
     ports:
       - "80:80"
-
-networks:
-  nginx_node_ntw:
-    driver: bridge

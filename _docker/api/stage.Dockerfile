@@ -16,11 +16,10 @@ RUN apk add --no-cache \
     openssl-dev
 
 # create target folder
-RUN mkdir /var/www
-WORKDIR /var/www
+RUN mkdir /app
+WORKDIR /app
 
-COPY . ./quicksilver_api
-COPY requirements.txt requirements.txt
+COPY . .
 
 RUN pip --no-cache-dir install docutils
 RUN pip --no-cache-dir install https://github.com/unbit/uwsgi/archive/uwsgi-2.0.zip#egg=uwsgi
@@ -35,4 +34,4 @@ RUN wget http://www.stack360.io/my-weekly-status.json \
     && cp -rf my-weekly-status.json ~/.credentials/ \
     && chmod 755 -R ~/.credentials
 
-CMD ["/usr/bin/supervisord", "-c", "/var/www/quicksilver_api/_docker/api/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/app/_docker/api/stage.supervisord.conf"]

@@ -34,7 +34,7 @@ class Config(object):
     # MongoDB
     MONGODB_SETTINGS = {
         'DB': DB_NAME,
-        'HOST': os.environ.get('DB_HOST') or 'localhost',
+        'HOST': os.environ.get('DB_HOST') or 'api.qs.dev',
         'PORT': int(os.environ.get('DB_PORT')) if os.environ.get('DB_PORT') else 28017
     }
 

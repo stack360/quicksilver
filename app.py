@@ -25,7 +25,7 @@ from api.api_exceptions import *
 from models.models import db, Token
 from roles import ManageShipmentNeed, ManageAddressNeed
 
-import utils
+import qs_utils
 
 login_manager = LoginManager()
 login_manager.session_protection = 'basic'
@@ -112,7 +112,7 @@ def handle_403(error):
         "traceback": "None",
         "code": "UNKOWN_TO_SERVER"
     }
-    return utils.make_json_response(403, response)
+    return qs_utils.make_json_response(403, response)
 
 @app.errorhandler(Exception)
 def handle_exception(error):
@@ -126,7 +126,7 @@ def handle_exception(error):
     response = {
         "error":error_type,
         "traceback": traceback.format_exc(),
-        "code": utils.camel_2_snake_case(type(error).__name__).upper()
+        "code": qs_utils.camel_2_snake_case(type(error).__name__).upper()
     }
 
     # self-defined errors
@@ -156,7 +156,7 @@ def handle_exception(error):
         response['error'] = error.message
         response['traceback'] = error.traceback
 
-    return utils.make_json_response(status_code, response)
+    return qs_utils.make_json_response(status_code, response)
 
 @app.route('/')
 def index():

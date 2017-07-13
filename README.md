@@ -79,14 +79,14 @@ Notice: for clearity purpose, traceback is shortened in following sample request
 | POST | [/user/register](doc/user_register.md) | Register (if a `guest_id` is given, previous stored data will be connected to newly created account) | guest， unkown |
 | POST | [/user/login](doc/user_login.md) | Login and issue a `token` | guest, unkown |
 | POST | [/user/logout](doc/user_logout.md) | Logout | customer |
-| GET | /user/:user_id | Get user information | customer |
+| GET | [/user/info](doc/user_info.md) | Get user information | customer |
 
 ## Address API List
 
 | Verb | URL | Note | Roles |
 | -- | -- | -- | -- |
-| GET | [/address](doc/address_list) | List addresses for user | customer |
-| POST | [/address](doc/address_create) | Create a new address | customer |
+| GET | [/address](doc/address_list.md) | List addresses for user | customer |
+| POST | [/address](doc/address_create.md) | Create a new address | customer |
 | POST | [/address/:address_id](doc/address_edit.md) | Edit address | customer |
 | DELETE | [/address/:address_id](doc/address_delete.md) | Delete address | customer |
 
