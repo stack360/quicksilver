@@ -11,7 +11,7 @@ services:
     build:
       context: ./api/
       dockerfile: ./_docker/api/stage.Dockerfile
-    container_name: QS_CORE
+    container_name: QS_API
     environment:
       DB_HOST: "database"
       DB_PORT: 27017
@@ -25,13 +25,6 @@ services:
       dockerfile: ./stage.Dockerfile
     container_name: QS_WEB
     environment:
-      API_HOST: "api.qs.prod"
-
-  nginx:
-    image: simonzg/qs_nginx
-    build:
-      context: ./api/
-      dockerfile: ./_docker/nginx/stage.Dockerfile
-    container_name: QS_NGINX
+      API_HOST: "CURRENT"
     ports:
       - "80:80"
