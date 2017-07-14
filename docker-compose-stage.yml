@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   database:
     image: mongo:3.2
@@ -7,24 +7,14 @@ services:
       - "28017:27017"
 
   api:
-    image: simonzg/qs_api
-    build:
-      context: ./api/
-      dockerfile: ./_docker/api/stage.Dockerfile
+    image: simonzg/qs_api:stage
     container_name: QS_API
     environment:
       DB_HOST: "database"
       DB_PORT: 27017
-    ports:
-      - "5000:5000"
 
   web:
-    image: simonzg/qs_web
-    build:
-      context: ./web/
-      dockerfile: ./stage.Dockerfile
+    image: simonzg/qs_web:stage
     container_name: QS_WEB
-    environment:
-      API_HOST: "CURRENT"
     ports:
       - "80:80"
