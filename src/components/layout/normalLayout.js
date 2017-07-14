@@ -17,14 +17,13 @@ const logoPath = require("../../image/logo.png");
 @connect((store)=>{
     return {
         user: store.user.profile,
-        token : store.element.token
     }
 })
 export default class NormalLayout extends React.Component{
 
 
     componentWillMount(){
-        if(this.props.token && !this.props.user.id){
+        if(this.props.user.token && !this.props.user.id){
             this.props.dispatch(getUserProfile());
         }
     }

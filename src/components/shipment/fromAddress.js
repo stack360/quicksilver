@@ -13,8 +13,8 @@ import commonFun from "../../util/commonFun"
 @connect((store) => {
     return {
         from: store.shipment.from_address,
-        addressBook: store.user.addressBook,
-        token: store.element.token
+        addressBook: store.user.address_book,
+        token: store.user.token
     }
 })
 export default class FromAddress extends React.Component {

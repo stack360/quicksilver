@@ -1,16 +1,15 @@
-FROM mhart/alpine-node:8.1.3
+FROM nginx:1.12.1-alpine
 
 COPY . /app
 WORKDIR /app
 
-RUN npm install &&\
-    npm run build &&\
-    rm -rf ./src &&\
-    rm -rf .git &&\
-    rm -rf node_modules
+RUN apk --update add nodejs && \
+    npm install -g npm && \
+    npm install && \
+    API_HOST="CURRENT" npm run build && \
+    rm -rf src .git node_modules \
+    rm -rf /var/cache/apk/* && \
+    npm uninstall npm -g && \
+    apk del nodejs
 
-RUN npm install express http socket.io
-
-EXPOSE 9000
-
-CMD ["node", "index.js"]
+COPY ./stage.nginx.conf /etc/nginx/conf.d/default.conf

@@ -14,8 +14,8 @@ import validateTool from "../../util/validateTool"
 @connect((store) => {
     return {
         to : store.shipment.to_address,
-        addressBook: store.user.addressBook,
-        token: store.element.token
+        addressBook: store.user.address_book,
+        token: store.user.token
     }
 })
 export default class ToAddress extends React.Component {

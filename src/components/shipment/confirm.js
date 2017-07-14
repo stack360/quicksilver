@@ -12,7 +12,7 @@ import {showGuestDialog} from "../../actions/elementAction"
 @connect((store) => {
     return {
         shipment: store.shipment,
-        token: store.element.token
+        token: store.user.token
     }
 })
 export default class Confirm extends React.Component {

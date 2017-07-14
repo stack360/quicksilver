@@ -9,7 +9,7 @@ import http from "../../util/http"
 import {deleteAddress} from "../../actions/userActions"
 
 @connect((store) => {
-    return{ addressBook : store.user.addressBook}
+    return{ addressBook : store.user.address_book}
 })
 export default class AddressBook extends React.Component {
     constructor(props) {

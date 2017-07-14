@@ -58,6 +58,23 @@ export function logout(){
     }
 }
 
+
+export function updateToken(token){
+    return {
+        type : "USER_UPDATE_TOKEN",
+        payload : token
+    }
+}
+
+
+export function updateGuestId(id){
+    return {
+        type : "USER_UPDATE_GUEST_ID",
+        payload:id
+    }
+}
+
+
 //
 // export function updateAddress(address){
 //     return {

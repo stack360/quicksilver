@@ -10,7 +10,7 @@ import commonFun from "../../util/commonFun"
 
 @connect((store) => {
     return{
-        addressBook : store.user.addressBook
+        addressBook : store.user.address_book
     }
 })
 export default class EditAddress extends React.Component{

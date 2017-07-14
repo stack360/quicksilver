@@ -28,7 +28,7 @@ const logoPath = require("../../image/logo.png");
 @connect((store) => {
     return {
         user: store.user.profile,
-        token : store.element.token
+        token: store.user.token,
     }
 })
 export default class ContainerLayout extends React.Component {

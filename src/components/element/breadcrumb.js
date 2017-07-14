@@ -29,24 +29,29 @@ export default class Breadcrumb extends React.Component {
         let config = [
             {
                 url : "/shipment/from/"+ this.props.shipmentId,
-                title : "① From Address",
+                title : "From Address",
+                indicator: "&#x2460;",
                 short_title: "From"
             },  {
                 url : "/shipment/to/"+ this.props.shipmentId ,
-                title : "② To Address",
+                title : "To Address",
+                indicator: "&#x2461;",
                 short_title: "To"
             },
             {
                 url : "/shipment/detail/"+ this.props.shipmentId ,
-                title : "③ Package Info",
+                title : "Package Info",
+                indicator: "&#x2462;",
                 short_title: "Pkg"
             },{
                 url : "/shipment/rates/"+this.props.shipmentId ,
-                title : "④ Get Rate",
+                title : "Get Rate",
+                indicator: "&#x2463;",
                 short_title: "Rate"
             },{
                 url : "/shipment/confirm/"+this.props.shipmentId ,
-                title : "⑤ Create Label",
+                title : "Create Label",
+                indicator: "&#x2464;",
                 short_title: "Label"
             }
         ];
@@ -57,16 +62,27 @@ export default class Breadcrumb extends React.Component {
         <ul className="main-breadcrumb mb-30 mt-20">
             {
                 config.map(function(item,index){
+                    let title = item['title'];
+                    let title_indicator = <span dangerouslySetInnerHTML={{__html: item['indicator']}} /> ;
+
+                    if (self.state.width<705){
+                        title = item['short_title'];
+                        title_indicator = "" ;
+                    }
                     if(step >index){
                         return(
                             <li key={index} className="active">
-                                <Link to={item['url']}> {self.state.width<705? item['short_title'] : item['title']}</Link>
+                                <Link to={item['url']}>
+                                    {title_indicator} {title}
+                                </Link>
                             </li>
                         );
                     }else{
                         return (
                             <li key={index}>
-                                <a href="javascript:void(0);" className='disabled'> {self.state.width<705 ? item['short_title'] : item['title']}</a>
+                                <a href="javascript:void(0);" className='disabled'>
+                                    {title_indicator} {title}
+                                </a>
                             </li>
                         );
                     }
