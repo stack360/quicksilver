@@ -52,8 +52,9 @@ Note: if your image has changed, and you need to rebuild ONLY one image, you cou
   --amazonec2-region us-west-1 \
   <MACHINE-NAME>
 
+  docker-compose build api
   docker-compose pull
-  docker-compose up
+  docker-compose up -d
 ```
 
 > Note: You will need to add Inbound rules for `docker-machine` security group in order to get a ping (ICMP) back or visit 80 port
