@@ -5,13 +5,14 @@ files:
     destination: docker-compose.yml
 hooks:
   BeforeInstall:
-    - location: scripts/prepare.sh
-      timeout: 10000
+    - location: scripts/before_install.sh
+      timeout: 100000
       runas: root
-    - location: scripts/start_server.sh
+  ApplicationStop:
+    - location: scripts/app_start.sh
       timeout: 5000
       runas: root
   ApplicationStop:
-    - location: scripts/stop_server.sh
+    - location: scripts/app_stop.sh
       timeout: 5000
       runas: root
