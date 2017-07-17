@@ -39,7 +39,7 @@
 
 Note: if your image has changed, and you need to rebuild ONLY one image, you could do this by ```docker-compose build NAME```
 
-## Deploy to AWS EC2
+## Stage Deploy to AWS EC2
 
 ```bash
 
@@ -52,9 +52,17 @@ Note: if your image has changed, and you need to rebuild ONLY one image, you cou
   --amazonec2-region us-west-1 \
   <MACHINE-NAME>
 
-  docker-compose build api
-  docker-compose pull
+  # point your Docker daemon to AWS instance
+  eval $(docker-machine env <MACHINE-NAME>)
+
+  # prepare default docker-compose config
+  copy docker-compose-stage.yml docker-compose.yml
+
+  # This will automatically pull/build/up the service
   docker-compose up -d
+
+  # then you could shut down the service by
+  docker-compose down
 ```
 
 > Note: You will need to add Inbound rules for `docker-machine` security group in order to get a ping (ICMP) back or visit 80 port
