@@ -1,5 +1,8 @@
 version: 0.0
 os: linux
+files:
+  - source: docker-compose-stage.yml
+    destination: docker-compose.yml
 hooks:
   BeforeInstall:
     - location: scripts/prepare
